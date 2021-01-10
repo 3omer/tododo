@@ -1,25 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from '../services/api'
+import { authStore } from './auth.module'
+import { todosStore } from "./todos.module"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    todos: []
-  },
-  mutations: {
-    setTodos(state, payload) {
-      state.todos = payload.todos
-    }
-  },
-  actions: {
-    loadTodos(context){
-      api.getTodos().then((todos) => {
-        context.commit('setTodos', { todos: todos })
-      })
-    }
-  },
   modules: {
+    authStore,
+    todosStore
   }
 })

@@ -19,19 +19,22 @@
       </nav>
     </header>
     <main>
-      <div class="container-fluid bg-light vh-100">
+      <div class="container-fluid vh-100">
         <div class="row">
           <div class="d-none d-md-block vh-100 col-md-3 mx-0 border border-top-0">
             <!-- nav menu -->
             <div class="list-group list-group-flush" id="navSidebar">
-                    <router-link class="list-group-item list-group-item-action" to="/">Home</router-link>
-                    <router-link class="list-group-item list-group-item-action" to="/login">login</router-link>
-                    <router-link class="list-group-item list-group-item-action" to="/about">About</router-link>
+              <router-link class="list-group-item list-group-item-action" to="/">Home</router-link>
+              <router-link class="list-group-item list-group-item-action" to="/login">login</router-link>
+              <router-link class="list-group-item list-group-item-action" to="/todos">Todos</router-link>
+              <router-link class="list-group-item list-group-item-action" to="/about">About</router-link>
             </div>
           </div>
           <!-- content -->
-          <div class="col-sm-12 col-md-9">
-            <router-view></router-view>
+          <div class="col-sm-12 col-md-9 bg-light vh-100">
+            <div class="content p-2">
+              <router-view></router-view>
+            </div>
           </div>
         </div>
       </div>

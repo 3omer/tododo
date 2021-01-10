@@ -1,10 +1,8 @@
 <template>
   <div class="m-2 p-2 bg-white rounded-3">
     <div class="login-form p-2">
+      <div class="alert alert-danger" v-show="error">{{error}}</div>
       <form action>
-        <div class="erros" v-for="(error, index) of errors" v-bind:key="index">
-          <div class="alert alert-danger">{{error}}</div>
-        </div>
         <h2>Login</h2>
         <input
           class="form-control m-2"
@@ -32,7 +30,7 @@
 </template>
 
 <script>
-import api from '../services/api'
+import api from "../services/api";
 export default {
   name: "Login",
   data() {
@@ -41,16 +39,24 @@ export default {
         email: "",
         password: ""
       },
-      errors: []
+      error: ""
     };
   },
   methods: {
     login() {
-      console.log("Logining in .. .")
-      console.log(this.fields.email, this.fields.password)
-      api.login(this.fields.email, this.fields.password).then(res => {
-        if (res.token) console.log("Logged in successfully")
-      })
+      console.log("Login: lgoin()");
+      api
+        .postLogin(this.fields.email, this.fields.password)
+        .then(res => {
+          if (res.token) {
+            console.log("login() - Token retrived", res.token)
+            localStorage.setItem('user', JSON.stringify(res))
+            this.$store.commit('authStore/loginSuccess', res)
+          }
+        })
+        .catch(error => {
+          this.error = error.error;
+        });
     }
   }
 };
