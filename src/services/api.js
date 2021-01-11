@@ -9,10 +9,10 @@ let todos = [
 function postLogin(email, password) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            if ( email === "omer@example.com" && password ) {
+            if (email === "omer@example.com" && password) {
                 resolve({ username: "omer", email: "omer@example.com", token: "tokentokentokentoken" })
             }
-            return reject({ error: "Incoreect username or password"})
+            return reject({ error: "Incoreect username or password" })
         }, 1000)
     })
 }
@@ -31,4 +31,15 @@ function deleteTodo(id) {
     todos = todos.filter(todo => todo.id != id)
 }
 
-export default { postLogin, getTodos, deleteTodo }
+function postSignup(user) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                id: "123",
+                ...user
+            })
+        }, 500)
+    })
+}
+
+export default { postSignup, postLogin, getTodos, deleteTodo }

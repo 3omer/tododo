@@ -3,7 +3,7 @@
     <header>
       <nav class="navbar navbar-light border-bottom">
         <div class="container">
-          <a class="navbar-brand" href="#">TODOFITY</a>
+          <a class="navbar-brand" href="/">TODOFITY</a>
           <button
             class="navbar-toggler d-sm-block d-md-none"
             type="button"
