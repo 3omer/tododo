@@ -1,5 +1,6 @@
 <template>
   <div class="m-2 p-2 bg-white rounded-3">
+    <btnLogout/>
     <div class="login-form p-2">
       <div class="alert alert-danger" v-show="error">{{error}}</div>
       <form action>
@@ -30,9 +31,12 @@
 </template>
 
 <script>
-import api from "../services/api";
+import api from "../services/api"
+import btnLogout from '../components/btnLogout'
+
 export default {
   name: "Login",
+  components: { btnLogout },
   data() {
     return {
       fields: {
@@ -50,14 +54,13 @@ export default {
         .then(res => {
           if (res.token) {
             console.log("login() - Token retrived", res.token)
-            localStorage.setItem('user', JSON.stringify(res))
             this.$store.commit('authStore/loginSuccess', res)
             this.$router.push({ name: 'home' })
           }
         })
         .catch(error => {
           this.error = error.error;
-        });
+        })
     }
   }
 };

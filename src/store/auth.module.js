@@ -1,5 +1,5 @@
 import api from '../services/api'
-const user = localStorage.getItem('user')
+const user = JSON.parse(localStorage.getItem('user'))
 const authState = user? { user }: {}
 
 export const authStore = {
@@ -8,9 +8,15 @@ export const authStore = {
     mutations: {
         loginSuccess(state, user) {
             state.user = user
+            localStorage.setItem('user', JSON.stringify(user))
         },
         loginFailure(state) {
             state.user = null
+            localStorage.removeItem('user')
+        },
+        logout(state) {
+            state.user = null
+            localStorage.removeItem('user')
         }
     },
     actions: {
@@ -25,6 +31,14 @@ export const authStore = {
                 console.error('authStore - login', error.message)
                 context.commit('loginFailure')
             })
+        },
+        logout(context) {
+            api.postLogout().then((result) => {
+                console.log('authStore:logout(): result:', result);
+                context.commit('logout')
+            }).catch((err) => {
+                console.error('authStore - login', err.message) 
+            });
         }
     }
 }

@@ -14,7 +14,10 @@ function defaultMeta() {
 
 const home = {
   path: '/', alias: '/todos', name: 'home',
-  component: TodoList, meta: defaultMeta()
+  component: TodoList, meta: defaultMeta(),
+  beforeEnter(to, from, next) {
+    authMidlleware(to, from, next)
+  }
 }
 
 const signup = { path: '/signup', name: 'sginup', component: Signup }
@@ -23,6 +26,7 @@ const login = {
   path: "/login", name: "login",
   component: Login
 }
+
 
 const routes = [
   home,
@@ -59,8 +63,8 @@ function authMidlleware(to, from, next) {
   }
 }
 
-router.beforeEach((to, from, next) => { 
-  console.log('GLOBAL-beforeEach()')
-  authMidlleware(to, from, next)
-})
+// router.beforeEach(() => { 
+//   console.log('GLOBAL-beforeEach()')
+//   // authMidlleware(to, from, next)
+// })
 export default router

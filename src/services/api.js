@@ -42,4 +42,23 @@ function postSignup(user) {
     })
 }
 
-export default { postSignup, postLogin, getTodos, deleteTodo }
+function postLogout() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ status: 200 })
+        }, 500);
+    });
+}
+
+function putTodo(newTodo) {
+    const idx = todos.findIndex(todo => todo.id == newTodo.id)
+    return new Promise((resolve, reject) => {
+        if (idx == -1) return reject({status: 404, error: "Not found"})
+        todos[idx] = newTodo
+        console.log("api:putTodo()", newTodo.id, todos[idx].id);
+        
+        return resolve(newTodo)
+    });
+
+}
+export default { postSignup, postLogin, postLogout, getTodos, deleteTodo, putTodo }

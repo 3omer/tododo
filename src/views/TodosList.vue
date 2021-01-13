@@ -1,32 +1,45 @@
 <template>
-  <div class="todos-list">
-    <span class="h1 bg-info text-white m-2 p-1 rounded-3">TODOS</span>
-    <Todo v-for="todo in todos" v-bind:key="todo.id" v-bind:todo="todo" v-on:delete="deleteTodo"/>
+  <div class="todos-container">
+    <div class="head text-center rounded-3 bg-primary my-1 p-2">
+      <span class="h1 text-white p-1">TODOS</span>
+    </div>
+    <div class="todos-list my-1 bg-light">
+      <Todo v-for="todo in todos" 
+      v-bind:key="todo.id" 
+      v-bind:todo="todo" 
+      v-on:delete="deleteTodo"
+      v-on:update="updateTodo"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Todo from '../components/Todo'
+import { mapState } from "vuex";
+import Todo from "../components/Todo";
 
 export default {
-    name: 'TodosList',
-    components: {
-        Todo
+  name: "TodosList",
+  components: {
+    Todo
+  },
+  computed: mapState({
+    todos: state => state.todosStore.todos
+  }),
+  beforeMount() {
+    console.log("TodosList:beforeMount()", "Fetching TODOS from server");
+
+    this.$store.dispatch("todosStore/loadTodos");
+  },
+  methods: {
+    deleteTodo(todo) {
+      console.log("TodoList:deleteTodo()", todo.id);
+      this.$store.dispatch("todosStore/deleteTodo", todo);
     },
-    computed: mapState({
-        todos: state => state.todosStore.todos
-    }),
-    beforeMount() {
-        console.log('TodosList:beforeMount()', 'Fetching TODOS from server');
-        
-        this.$store.dispatch('todosStore/loadTodos')
-    },
-    methods: {
-      deleteTodo(todo) {
-        console.log('TodoList:deleteTodo()',   todo.id)
-        this.$store.dispatch('todosStore/deleteTodo', todo)
-      }
+    updateTodo(todo) {
+      console.log("TodoList:updateTodo()", todo.id);
+      this.$store.dispatch('todosStore/updateTodo', todo)
     }
-}
+  }
+};
 </script>
