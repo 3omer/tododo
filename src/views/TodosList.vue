@@ -38,7 +38,7 @@ export default {
     },
     updateTodo(todo) {
       console.log("TodoList:updateTodo()", todo.id);
-      this.$store.dispatch('todosStore/updateTodo', todo)
+      this.$store.dispatch('todosStore/updateTodo', todo).catch(err => console.error(err))
     }
   }
 };

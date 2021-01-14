@@ -53,7 +53,7 @@ function postLogout() {
 function putTodo(newTodo) {
     const idx = todos.findIndex(todo => todo.id == newTodo.id)
     return new Promise((resolve, reject) => {
-        if (idx == -1) return reject({status: 404, error: "Not found"})
+        if (idx != -1) return reject({status: 404, error: "Not found"})
         todos[idx] = newTodo
         console.log("api:putTodo()", newTodo.id, todos[idx].id);
         

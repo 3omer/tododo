@@ -37,9 +37,9 @@ export const todosStore = {
         updateTodo(context, todo) {
             console.log("todosStore:updateTodo()", todo.id);
             
-            api.putTodo(todo).then(todo => {
+            return api.putTodo(todo).then(todo => {
                 context.commit('updateTodo', { todo })
-            }).catch(error => console.error(error))
+            })
             
         }
     }

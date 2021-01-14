@@ -1,5 +1,5 @@
-# todovity
-
+# tododo
+Yes ..this is another todo app.. I am DOING it while going through Vue.js documentaion .. or what else I have TODO ;) ?
 ## Project setup
 ```
 npm install
