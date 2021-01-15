@@ -5,39 +5,42 @@
       <form action>
         <h2>Signup</h2>
         <input
-          class="form-control m-2"
+          class="form-control my-1"
           name="username"
           v-model="fields.username"
           id="username"
           placeholder="username"
+          required
         />
         <input
-          class="form-control m-2"
+          class="form-control my-1"
           type="email"
           name="email"
           v-model="fields.email"
           id="email"
           placeholder="user@example.com"
+          required
         />
         <input
-          class="form-control m-2"
+          class="form-control my-1"
           type="password"
           name="password"
           v-model="fields.password"
           placeholder="password"
+          required
         />
+        <div class="form-options text-center">
+          <button type="submit" class="btn btn-primary w-100 my-1" @click.prevent="signup">Signup</button>
+          <br />
+          <router-link to="/login">I already have account</router-link>
+        </div>
       </form>
-    </div>
-    <div class="form-options text-center">
-      <button class="btn btn-primary w-100 my-1" @click="signup">Signup</button>
-      <br />
-      <router-link to="/login">I already have account</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import api from '../services/api'
+import api from "../services/api";
 export default {
   data() {
     return {
@@ -46,17 +49,16 @@ export default {
         email: "",
         password: ""
       },
-      error: ''
+      error: ""
     };
   },
   methods: {
     signup() {
-      console.log("COMP:Signup - signup()")
+      console.log("COMP:Signup - signup()");
       api.postSignup(this.fields).then(res => {
-        console.log("API-RESP", res)
-        this.$router.push('./login')        
-      })
-
+        console.log("API-RESP", res);
+        this.$router.push("./login");
+      });
     }
   }
 };
