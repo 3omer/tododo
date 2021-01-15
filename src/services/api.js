@@ -21,7 +21,8 @@ function getTodos() {
     return new Promise((resolve) => {
 
         setTimeout(() => {
-            resolve(todos)
+            // dont get confused. Passing todos will interfere with vue state
+            resolve(todos.concat())
         }, 1000)
     });
 }
@@ -53,11 +54,14 @@ function postLogout() {
 function putTodo(newTodo) {
     const idx = todos.findIndex(todo => todo.id == newTodo.id)
     return new Promise((resolve, reject) => {
-        if (idx != -1) return reject({status: 404, error: "Not found"})
-        todos[idx] = newTodo
-        console.log("api:putTodo()", newTodo.id, todos[idx].id);
-        
-        return resolve(newTodo)
+        setTimeout(() => {
+            if (idx == -1) return reject({ status: 404, error: "Not found" })
+            todos[idx].done = newTodo.done
+            console.log("api:putTodo()", newTodo.id, todos[idx].id);
+
+            return resolve(newTodo)
+        }, 2000)
+
     });
 
 }

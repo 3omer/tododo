@@ -8,9 +8,9 @@
             class="form-check-input m-0 border-0 rounded-circle"
             type="checkbox"
             name="done"
-            id="done"
-            v-model="todo.done"
-            @change.prevent="$emit('update', todo)"
+            :id="todo.id"
+            v-bind:checked="todo.done"
+            @change.prevent="handleClick"
           />
         </div>
         <div class="content mx-1 p-2">{{todo.text}}</div>
@@ -25,9 +25,7 @@
 <script>
 export default {
   name: "Todo",
-  props: {
-    todo: Object
-  },
+  props: ["todo"],
   computed: {
     computedClass() {
       return {
@@ -36,10 +34,10 @@ export default {
     }
   },
   methods: {
-      handleClick () {
-          console.log(this.todo);
-          this.todo.done = !this.todo.done
-          this.$store.dispatch('todosStore/updateTodo', this.todo)
+      handleClick (event) {
+          console.log("Todo:handleClick()", this.todo)
+          this.$emit("update", { id: this.todo.id, text: this.todo.text, done: event.target.checked })
+          event.target.checked = this.todo.done
       }
   }
 };

@@ -10,22 +10,22 @@ export const todosStore = {
         todos: []
     },
     mutations: {
-        setTodos(state, payload) {            
+        setTodos(state, payload) {
             state.todos = payload.todos
         },
         deleteTodo(state, payload) {
             state.todos = state.todos.filter(todo => todo.id != payload.todo.id)
         },
         updateTodo(state, payload) {
-            const idx = state.todos.findIndex(todo => todo.id == payload.todo.id)
-            if (idx == 1) return
-            state.todos[idx] = payload.todo
+            const target = state.todos.findIndex(todo => todo.id == payload.todo.id)
+            if (target == -1) return
+            Object.assign(target, payload.todo)
         }
     },
     actions: {
         loadTodos(context) {
             console.log('todosStore:loadTodos()');
-            api.getTodos().then((todos) => {                
+            api.getTodos().then((todos) => {
                 context.commit('setTodos', { todos: todos })
             })
         },
@@ -36,11 +36,13 @@ export const todosStore = {
         },
         updateTodo(context, todo) {
             console.log("todosStore:updateTodo()", todo.id);
-            
+
             return api.putTodo(todo).then(todo => {
+                console.log("todosStore:updateTodo()", "putTodo() resoloved")
                 context.commit('updateTodo', { todo })
+                return todo
             })
-            
+
         }
     }
 }
