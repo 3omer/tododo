@@ -10,6 +10,9 @@
       v-on:delete="deleteTodo"
       v-on:update="updateTodo"
       />
+      <div class="d-flex p-1">
+        <input class="form-control m-1" name="todo" placeholder="What do you want to do?"/>
+       <button class="btn btn-sm btn-primary m-1">Add</button> </div>
     </div>
   </div>
 </template>
