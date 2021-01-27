@@ -20,6 +20,9 @@ export const todosStore = {
             const target = state.todos.findIndex(todo => todo.id == payload.todo.id)
             if (target == -1) return
             Object.assign(target, payload.todo)
+        },
+        addTodo(state, payload) {
+            state.todos.push(payload.todo)
         }
     },
     actions: {
@@ -43,6 +46,16 @@ export const todosStore = {
                 return todo
             })
 
+        },
+        addTodo(context, todo) {
+            console.log("todoStore:addTodo()", todo);
+            api.addTodo(todo).then(todo => {
+                if (todo.id) {
+                    context.commit('addTodo', { todo })
+                } else {
+                    console.error("Invalid res:", todo);
+                }
+            }).catch(console.error)
         }
     }
 }

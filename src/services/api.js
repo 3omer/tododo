@@ -65,4 +65,15 @@ function putTodo(newTodo) {
     });
 
 }
-export default { postSignup, postLogin, postLogout, getTodos, deleteTodo, putTodo }
+
+function addTodo(todo) {
+    todo.id = todos.length + 1
+    todos.push(todo)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(todo)
+            if (!todo) reject({ error:"invalid data" })
+        }, 1000);
+    });
+}
+export default { postSignup, postLogin, postLogout, getTodos, addTodo, deleteTodo, putTodo }
